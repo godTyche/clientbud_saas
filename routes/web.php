@@ -118,6 +118,7 @@ use App\Http\Controllers\ProjectTemplateSubTaskController;
 use App\Http\Controllers\EmployeeShiftChangeRequestController;
 use App\Http\Controllers\LeadContactController;
 use App\Http\Controllers\PipelineController;
+use App\Http\Controllers\EmailMarketingController;
 use App\Http\Controllers\ResourceCenterController;
 
 
@@ -787,6 +788,9 @@ Route::group(['middleware' => ['auth', 'multi-company-select', 'email_verified']
 
     Route::get('quickbooks/{hash}/callback', [QuickbookController::class, 'callback'])->name('quickbooks.callback');
     Route::get('quickbooks', [QuickbookController::class, 'index'])->name('quickbooks.index');
+
+    // Email Marketing
+    Route::get('email-marketing', [EmailMarketingController::class,'index'])->name('email-marketing.index');
 
     // Resource Center
     Route::resource('resource-center', ResourceCenterController::class);
