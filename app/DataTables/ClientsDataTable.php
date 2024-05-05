@@ -195,7 +195,7 @@ class ClientsDataTable extends BaseDataTable
                 }',
             ]);
 
-        if (canDataTableExport()) {
+        if (canDataTableExport() && in_array('admin', user_roles())) {
             $dataTable->buttons(Button::make(['extend' => 'excel', 'text' => '<i class="fa fa-file-export"></i> ' . trans('app.exportExcel')]));
         }
 
