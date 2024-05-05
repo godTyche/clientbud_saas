@@ -1225,5 +1225,6 @@ return array(
     'markCancel' => 'Mark Canceled',
     'taxName' => 'Tax Name',
     'phoneCopied' => 'Phone number copied',
+    'assign' => 'Assign',
 );
 
