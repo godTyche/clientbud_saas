@@ -174,4 +174,10 @@ return array(
         'languageCode' => 'e.g. en',
     ),
     'gst/vat' => 'e.g. GST/VAT',
+    'resourceCenter' => array(
+        'url' => 'https://www.example.com',
+        'icon' => '<i class="fa fa-globe"></i>',
+        'colour' => '#000000',
+        'title' => 'Title'
+    )
 );

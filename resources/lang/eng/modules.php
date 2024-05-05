@@ -2159,4 +2159,11 @@ return array(
         'totalDealAmount' => 'Total Deal Amount',
         'leadContactEmail' => 'Lead Contact Email',
     ),
+    'resourceCenter' => array(
+        'addResource' => 'Add Resource',
+        'editResource' => 'Edit Resource',
+        'url' => 'Resource URL',
+        'icon' => 'Resource Icon',
+        'colour' => 'Resource Card Colour',
+    )
 );

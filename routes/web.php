@@ -118,6 +118,8 @@ use App\Http\Controllers\ProjectTemplateSubTaskController;
 use App\Http\Controllers\EmployeeShiftChangeRequestController;
 use App\Http\Controllers\LeadContactController;
 use App\Http\Controllers\PipelineController;
+use App\Http\Controllers\ResourceCenterController;
+
 
 Route::group(['middleware' => ['auth', 'multi-company-select', 'email_verified'], 'prefix' => 'account'], function () {
     Route::post('image/upload', [ImageController::class, 'store'])->name('image.store');
@@ -785,5 +787,9 @@ Route::group(['middleware' => ['auth', 'multi-company-select', 'email_verified']
 
     Route::get('quickbooks/{hash}/callback', [QuickbookController::class, 'callback'])->name('quickbooks.callback');
     Route::get('quickbooks', [QuickbookController::class, 'index'])->name('quickbooks.index');
+
+    // Resource Center
+    Route::resource('resource-center', ResourceCenterController::class);
+    Route::post('resource-center/{id}/update', [ResourceCenterController::class, 'update'])->name('resource-center.update');
 
 });

@@ -242,6 +242,7 @@ return array(
         'attrition' => 'Attrition',
         'contracts' => 'Contracts',
         'estimate' => 'Estimate',
+        'resourceCenter' => 'Resource Center',
 
         'projectCalendar' => 'Project Calendar',
         'customLink' => 'Custom Link',
