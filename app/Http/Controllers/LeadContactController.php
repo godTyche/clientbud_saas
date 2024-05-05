@@ -407,6 +407,7 @@ class LeadContactController extends AccountBaseController
     public function importStore(ImportRequest $request)
     {
         $this->importFileProcess($request, LeadImport::class);
+        $this->clients = User::allClients();
 
         $view = view('leads.ajax.import_progress', $this->data)->render();
 
