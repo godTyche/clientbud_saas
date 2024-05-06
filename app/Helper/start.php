@@ -897,6 +897,8 @@ if (!function_exists('sidebar_user_perms')) {
                 'view_lead_report',
                 'view_sales_report',
                 'view_deals',
+                'view_emailmarketing',
+                'view_resourcecenter',
             ];
 
 

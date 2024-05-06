@@ -1698,6 +1698,8 @@ return array(
         'custom_domain' => 'Custom Domain',
         'qrcode' => 'QR Code',
         'cybersecurity' => 'Cyber Security',
+        'emailmarketing' => 'Email Marketing',
+        'resourcecenter' => 'Resource Center',
     ),
     'projectSettings' => array(
         'sendNotificationsTo' => 'Send Reminder To',
