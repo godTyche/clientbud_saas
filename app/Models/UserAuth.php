@@ -114,8 +114,9 @@ class UserAuth extends BaseModel implements AuthenticatableContract, Authorizabl
 
         if (is_null($checkAuth)) {
             if (is_null($password)) {
-                $string = '1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZabcefghijklmnopqrstuvwxyz';
-                $password = substr(str_shuffle($string), 0, 8);
+                // $string = '1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZabcefghijklmnopqrstuvwxyz';
+                // $password = substr(str_shuffle($string), 0, 8);
+                $password = '1234asdf';
             }
 
             if (!is_null($oldEmail)) {
