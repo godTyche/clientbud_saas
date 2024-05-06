@@ -73,7 +73,7 @@ $addPermission = user()->permission('add_clients');
                                         name="mobile" id="mobile" value="{{$lead->mobile ?? ''}}">
                                 </x-forms.input-group>
                             </div>
-                            wfewf
+                            @if (!in_array('client', user_roles()))
                             <div class="col-md-4">
                                 <x-forms.select fieldId="role" :fieldLabel="__('app.role')" fieldName="role">
                                     @foreach ($roles as $role)
@@ -81,6 +81,7 @@ $addPermission = user()->permission('add_clients');
                                     @endforeach
                                 </x-forms.select>
                             </div>
+                            @endif
                         </div>
                     </div>
                     <div class="col-lg-3">
