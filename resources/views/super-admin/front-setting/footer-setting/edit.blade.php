@@ -1,5 +1,5 @@
 <div class="modal-header">
-    <h5 class="modal-title">@lang('superadmin.footer.editFooterMenu') ( {{$langCode->language_name}} <span class='flag-icon flag-icon-{{ $langCode->flag_code == 'en' ? 'gb' : strtolower($langCode->flag_code) }} flag-icon-squared'></span> )</h5>
+    <h5 class="modal-title">@lang('superadmin.footer.editFooterMenu') ( {{$langCode->language_name}} <span class='flag-icon flag-icon-{{ $langCode->flag_code == 'en' ? 'us' : strtolower($langCode->flag_code) }} flag-icon-squared'></span> )</h5>
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
 </div>
 
@@ -15,7 +15,7 @@
                             @foreach ($languageSettings as $language)
                                 <option
                                     @if($language->id === $footer->language_setting_id) selected @endif
-                                data-content="<span class='flag-icon flag-icon-{{ $language->language_code == 'en' ? 'gb' : strtolower($language->language_code) }} flag-icon-squared'></span> {{ $language->language_name }}"
+                                data-content="<span class='flag-icon flag-icon-{{ $language->language_code == 'en' ? 'us' : strtolower($language->language_code) }} flag-icon-squared'></span> {{ $language->language_name }}"
                                     value="{{ $language->id }}">{{ $language->language_name }}</option>
                             @endforeach
                         </x-forms.select>

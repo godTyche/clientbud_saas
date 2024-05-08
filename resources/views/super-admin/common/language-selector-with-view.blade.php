@@ -10,7 +10,7 @@
                                data-toggle="tab" href="{{ route($route, [$language->language_code]) }}" role="tab"
                                aria-controls="nav-{{ $language->language_code }}" aria-selected="true">
                                 <span
-                                    class='flag-icon flag-icon-{{ ($language->language_code == 'en') ? 'gb' : strtolower($language->flag_code) }} flag-icon-squared'></span>
+                                    class='flag-icon flag-icon-{{ ($language->language_code == 'en') ? 'us' : strtolower($language->flag_code) }} flag-icon-squared'></span>
                                 {{ $language->language_name }}
                                 @if( isset($allLangTranslation) && in_array($language->id, array_column($allLangTranslation,'language_setting_id')))
                                     <i class='fa fa-circle ml-1 text-light-green'></i>

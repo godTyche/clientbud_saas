@@ -78,7 +78,7 @@
                             <select class="form-control select-picker" name="locale" id="locale"
                                     data-live-search="true">
                                 @foreach($languageSettings as $language)
-                                    <option data-content="<span class='flag-icon flag-icon-{{ ($language->flag_code == 'en') ? 'gb' : strtolower($language->flag_code) }} flag-icon-squared'></span> {{ $language->language_name }}"
+                                    <option data-content="<span class='flag-icon flag-icon-{{ ($language->flag_code == 'en') ? 'us' : strtolower($language->flag_code) }} flag-icon-squared'></span> {{ $language->language_name }}"
                                             @selected($language->language_code == global_setting()->locale)
                                             value="{{ $language->language_code }}">{{ $language->language_name }}</option>
                                 @endforeach

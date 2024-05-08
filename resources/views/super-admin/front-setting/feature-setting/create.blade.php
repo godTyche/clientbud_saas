@@ -20,7 +20,7 @@
                         <x-forms.select fieldId="language" :fieldLabel="__('app.language')" fieldName="language">
                             @foreach ($languageSettings as $language)
                                 <option
-                                    data-content="<span class='flag-icon flag-icon-{{ $language->flag_code == 'en' ? 'gb' : strtolower($language->flag_code) }} flag-icon-squared'></span> {{ $language->language_name }}"
+                                    data-content="<span class='flag-icon flag-icon-{{ $language->flag_code == 'en' ? 'us' : strtolower($language->flag_code) }} flag-icon-squared'></span> {{ $language->language_name }}"
                                     value="{{ $language->id }}">{{ $language->language_name }}</option>
                             @endforeach
                         </x-forms.select>

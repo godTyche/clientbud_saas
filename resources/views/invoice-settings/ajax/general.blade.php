@@ -25,7 +25,7 @@
                             fieldName="locale" search="true">
                 @foreach ($languageSettings as $language)
                     <option
-                            data-content="<span class='flag-icon flag-icon-{{ ($language->flag_code == 'en') ? 'gb' : $language->flag_code }} flag-icon-squared'></span> {{ $language->language_name }}"
+                            data-content="<span class='flag-icon flag-icon-{{ ($language->flag_code == 'en') ? 'us' : $language->flag_code }} flag-icon-squared'></span> {{ $language->language_name }}"
                             @if ($invoiceSetting->locale == $language->language_code) selected
                             @endif value="{{ $language->language_code }}">
                         {{ $language->language_name }}</option>

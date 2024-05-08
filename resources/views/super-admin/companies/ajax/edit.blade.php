@@ -83,7 +83,7 @@
 
                                 @foreach ($languageSettings as $language)
                                     <option {{ $company->locale == $language->language_code ? 'selected' : '' }}
-                                            data-content="<span class='flag-icon flag-icon-{{ ($language->flag_code == 'en') ? 'gb' : strtolower($language->flag_code) }} flag-icon-squared'></span> {{ $language->language_name }}"
+                                            data-content="<span class='flag-icon flag-icon-{{ ($language->flag_code == 'en') ? 'us' : strtolower($language->flag_code) }} flag-icon-squared'></span> {{ $language->language_name }}"
                                             value="{{ $language->language_code }}">{{ $language->language_name }}
                                     </option>
                                 @endforeach

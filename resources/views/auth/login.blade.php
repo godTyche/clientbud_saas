@@ -155,18 +155,20 @@
                         $redirect = (!is_null($rootCrmSubDomain) && $rootCrmSubDomain !=='')?'//'.$rootCrmSubDomain:'//'.getDomain();
                         $signup = $redirect.'/signup';
                     }
+                    $redirect = 'https://clientbud.com';
+                    $signup = 'https://clientbud.com';
                 @endphp
 
                 @if(!$globalSetting->frontend_disable)
                     <p class="my-2 f-12"><a
                             href="{{ $redirect }}"
-                            class="text-dark-grey">@lang('superadmin.goToWebsite')</a>
+                            class="text-white">@lang('superadmin.goToWebsite')</a>
                     </p>
                 @endif
                 @if ($globalSetting->enable_register)
                     <p class="my-2 f-12">@lang('superadmin.dontHaveAccount') <a
                             href="{{ $signup }}"
-                            class="text-dark-grey">@lang('app.signUp') </a>
+                            class="text-white">@lang('app.signUp') </a>
                     </p>
                 @endif
             @endif

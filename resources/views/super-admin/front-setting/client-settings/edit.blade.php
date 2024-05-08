@@ -1,5 +1,5 @@
 <div class="modal-header">
-    <h5 class="modal-title">@lang('app.addNew') @lang('superadmin.menu.frontClient') ( {{$langCode->language_name}} <span class='flag-icon flag-icon-{{ $langCode->flag_code == 'en' ? 'gb' : strtolower($langCode->flag_code) }} flag-icon-squared'></span> )</h5>
+    <h5 class="modal-title">@lang('app.addNew') @lang('superadmin.menu.frontClient') ( {{$langCode->language_name}} <span class='flag-icon flag-icon-{{ $langCode->flag_code == 'en' ? 'us' : strtolower($langCode->flag_code) }} flag-icon-squared'></span> )</h5>
 
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
 </div>

@@ -61,7 +61,7 @@
 
                     @forelse($languages as $language)
                         <tr id="languageRow{{ $language->id }}" @class(['bg-additional-grey' => companyOrGlobalSetting()->locale === $language->language_code]) >
-                            <td><span class='flag-icon flag-icon-{{ $language->language_code=='en'?'gb':$language->flag_code }} flag-icon-squared'></span> {{ $language->language_name }}</td>
+                            <td><span class='flag-icon flag-icon-{{ $language->language_code=='en'?'us':$language->flag_code }} flag-icon-squared'></span> {{ $language->language_name }}</td>
                             <td>{{ $language->language_code }}</td>
                             <td>
                                 @if(companyOrGlobalSetting()->locale !== $language->language_code)
