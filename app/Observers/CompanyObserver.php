@@ -962,6 +962,7 @@ class CompanyObserver
         }
 
         ModuleSetting::whereIn('id', $activeModuleSettings)->update(['is_allowed' => 1]);
+        ModuleSetting::whereIn('id', $activeModuleSettings)->update(['status' => 'active']);
         ModuleSetting::whereIn('id', $inactiveModuleSettings)->update(['is_allowed' => 0]);
 
         $this->clearCompanyUserCache($company);

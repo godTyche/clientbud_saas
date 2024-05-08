@@ -49,6 +49,8 @@ class ModuleSetting extends BaseModel
             'payments',
             'orders',
             'knowledgebase',
+            'emailmarketing',
+            'resourcecenter',
         ];
 
     const OTHER_MODULES = [
@@ -61,7 +63,7 @@ class ModuleSetting extends BaseModel
             'products',
             'reports',
             'settings',
-            'bankaccount'
+            'bankaccount',
         ];
 
     protected $guarded = ['id'];
