@@ -128,7 +128,24 @@ class PackageDataTable extends BaseDataTable
 
                 $string = '';
 
+                $HR_MODULES = ['employees', 'leaves', 'attendance', 'holidays'];
+                $WORK_MODULES = ['contracts', 'projects', 'tasks', 'timelogs'];
+                $FINANCE_MODULES = ['estimates', 'invoices', 'payments', 'expenses', 'bankaccount'];
+
+                // Check HR, Work module in Package table
+                $sign = in_array($HR_MODULES[0], $modules) ? ('<i class="fa fa-check"></i>') : ('<i class="fa fa-times"></i>');
+                $string .= '<span class="col-md-3">' . $sign . ' ' .'HR' . '</span>';
+
+                $sign = in_array($WORK_MODULES[0], $modules) ? ('<i class="fa fa-check"></i>') : ('<i class="fa fa-times"></i>');
+                $string .= '<span class="col-md-3">' . $sign . ' ' .'Work' . '</span>';
+
+                $sign = in_array($FINANCE_MODULES[0], $modules) ? ('<i class="fa fa-check"></i>') : ('<i class="fa fa-times"></i>');
+                $string .= '<span class="col-md-3">' . $sign . ' ' .'Finance' . '</span>';
+
                 foreach ($modulesAll as $module) {
+                    if(in_array($module->module_name, $HR_MODULES) || in_array($module->module_name, $WORK_MODULES) || in_array($module->module_name, $FINANCE_MODULES)) {
+                        continue;
+                    }
                     $sign = in_array($module->module_name, $modules) ? ('<i class="fa fa-check"></i>') : ('<i class="fa fa-times"></i>');
                     $string .= '<span class="col-md-3">' . $sign . ' ' . __('modules.module.' . $module->module_name) . '</span>';
                 }

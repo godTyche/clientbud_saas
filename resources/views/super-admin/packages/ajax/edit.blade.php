@@ -256,6 +256,27 @@
                     @php
                         $moduleInPackage = (array)json_decode($package->module_in_package);
                     @endphp
+                    <div class="col-md-2">
+                        <x-forms.checkbox class="mr-0 mr-lg-2 mr-md-2 module_checkbox"
+                            :fieldLabel="'HR'"
+                            :checked="true"
+                            fieldName="module_hr"
+                            :fieldId="'module_hr'" :fieldValue="'module_hr'"/>
+                    </div>
+                    <div class="col-md-2">
+                        <x-forms.checkbox class="mr-0 mr-lg-2 mr-md-2 module_checkbox"
+                            :fieldLabel="'Work'"
+                            :checked="true"
+                            fieldName="module_work"
+                            :fieldId="'module_work'" :fieldValue="'module_work'"/>
+                    </div>
+                    <div class="col-md-2">
+                        <x-forms.checkbox class="mr-0 mr-lg-2 mr-md-2 module_checkbox"
+                            :fieldLabel="'Finance'"
+                            :checked="false"
+                            fieldName="module_finance"
+                            :fieldId="'module_finance'" :fieldValue="'module_finance'"/>
+                    </div>
                     @foreach($packageModules as $module)
                         <div class="col-md-2">
                             <x-forms.checkbox class="mr-0 mr-lg-2 mr-md-2 module_checkbox"
@@ -291,7 +312,7 @@
 
 
                 <x-form-actions>
-                    <x-forms.button-primary class="mr-3" id="update-package-form" icon="check">@lang('app.update')
+                    <x-forms.button-primary class="mr-3" id="update-package-form" icon="check" onclick="event.preventDefault();">@lang('app.update')
                     </x-forms.button-primary>
                     <x-forms.button-cancel :link="route('superadmin.packages.index')"
                                            class="border-0">@lang('app.cancel')
@@ -306,6 +327,9 @@
 
 
 <script>
+    const HR_MODULES = ['employees', 'leaves', 'attendance', 'holidays'];
+    const WORK_MODULES = ['contracts', 'projects', 'tasks', 'timelogs'];
+    const FINANCE_MODULES = ['estimates', 'invoices', 'payments', 'expenses', 'bankaccount'];
 
     $(document).ready(function () {
         $(".select-picker").selectpicker();
@@ -377,6 +401,54 @@
         }
 
         init(RIGHT_MODAL);
+
+        // Hide all HR, Work Modules
+        for(let i = 0 ; i < HR_MODULES.length; i++) {
+            const module_name = HR_MODULES[i];
+            $(`input#${module_name}`).parent().parent().css('display', 'none');
+        }
+
+        for(let i = 0 ; i < WORK_MODULES.length; i++) {
+            const module_name = WORK_MODULES[i];
+            $(`input#${module_name}`).parent().parent().css('display', 'none');
+        }
+
+        for(let i = 0 ; i < FINANCE_MODULES.length; i++) {
+            const module_name = FINANCE_MODULES[i];
+            $(`input#${module_name}`).parent().parent().css('display', 'none');
+        }
+        
+        // Check HR, WORK checkbox
+        const isHRChecked = $(`input#${HR_MODULES[0]}`).prop('checked');
+        const isWORKChecked = $(`input#${WORK_MODULES[0]}`).prop('checked');
+        const isFinanceChecked = $(`input#${FINANCE_MODULES[0]}`).prop('checked');
+
+        $('input[name="module_hr"]').prop('checked', isHRChecked);
+        $('input[name="module_work"]').prop('checked', isWORKChecked);
+        $('input[name="module_finance"]').prop('checked', isFinanceChecked);
+
+        $('input[name="module_hr"]').click(function(){
+            const isChecked = $(this).prop('checked');
+            for(let i = 0 ; i < HR_MODULES.length; i++) {
+                const module_name = HR_MODULES[i];
+                $(`input#${module_name}`).prop('checked', isChecked);
+            }
+        })
+
+        $('input[name="module_work"]').click(function(){
+            const isChecked = $(this).prop('checked');
+            for(let i = 0 ; i < WORK_MODULES.length; i++) {
+                const module_name = WORK_MODULES[i];
+                $(`input#${module_name}`).prop('checked', isChecked);
+            }
+        })
+        $('input[name="module_finance"]').click(function(){
+            const isChecked = $(this).prop('checked');
+            for(let i = 0 ; i < FINANCE_MODULES.length; i++) {
+                const module_name = FINANCE_MODULES[i];
+                $(`input#${module_name}`).prop('checked', isChecked);
+            }
+        })
     });
 
 </script>

@@ -182,6 +182,27 @@
                                           :fieldLabel="__('modules.permission.selectAll')" fieldName=""
                                           fieldId="select_all_permission"/>
                     </div>
+                    <div class="col-md-2">
+                        <x-forms.checkbox class="mr-0 mr-lg-2 mr-md-2 module_checkbox"
+                            :fieldLabel="'HR'"
+                            :checked="false"
+                            fieldName="module_hr"
+                            :fieldId="'module_hr'" :fieldValue="'module_hr'"/>
+                    </div>
+                    <div class="col-md-2">
+                        <x-forms.checkbox class="mr-0 mr-lg-2 mr-md-2 module_checkbox"
+                            :fieldLabel="'Work'"
+                            :checked="false"
+                            fieldName="module_work"
+                            :fieldId="'module_work'" :fieldValue="'module_work'"/>
+                    </div>
+                    <div class="col-md-2">
+                        <x-forms.checkbox class="mr-0 mr-lg-2 mr-md-2 module_checkbox"
+                            :fieldLabel="'Finance'"
+                            :checked="false"
+                            fieldName="module_finance"
+                            :fieldId="'module_finance'" :fieldValue="'module_finance'"/>
+                    </div>
                     @foreach($packageModules as $module)
                         <div class="col-md-2">
                             <x-forms.checkbox class="mr-0 mr-lg-2 mr-md-2 module_checkbox"
@@ -213,6 +234,9 @@
 
 
 <script>
+    const HR_MODULES = ['employees', 'leaves', 'attendance', 'holidays'];
+    const WORK_MODULES = ['contracts', 'projects', 'tasks', 'timelogs'];
+    const FINANCE_MODULES = ['estimates', 'invoices', 'payments', 'expenses', 'bankaccount'];
 
     $(document).ready(function () {
 
@@ -275,6 +299,46 @@
         });
 
         init(RIGHT_MODAL);
+
+        // Hide all HR, Work Modules
+        for(let i = 0 ; i < HR_MODULES.length; i++) {
+            const module_name = HR_MODULES[i];
+            $(`input#${module_name}`).parent().parent().css('display', 'none');
+        }
+
+        for(let i = 0 ; i < WORK_MODULES.length; i++) {
+            const module_name = WORK_MODULES[i];
+            $(`input#${module_name}`).parent().parent().css('display', 'none');
+        }
+
+        for(let i = 0 ; i < FINANCE_MODULES.length; i++) {
+            const module_name = FINANCE_MODULES[i];
+            $(`input#${module_name}`).parent().parent().css('display', 'none');
+        }
+
+        $('input[name="module_hr"]').click(function(){
+            const isChecked = $(this).prop('checked');
+            for(let i = 0 ; i < HR_MODULES.length; i++) {
+                const module_name = HR_MODULES[i];
+                $(`input#${module_name}`).prop('checked', isChecked);
+            }
+        })
+
+        $('input[name="module_work"]').click(function(){
+            const isChecked = $(this).prop('checked');
+            for(let i = 0 ; i < WORK_MODULES.length; i++) {
+                const module_name = WORK_MODULES[i];
+                $(`input#${module_name}`).prop('checked', isChecked);
+            }
+        })
+
+        $('input[name="module_finance"]').click(function(){
+            const isChecked = $(this).prop('checked');
+            for(let i = 0 ; i < FINANCE_MODULES.length; i++) {
+                const module_name = FINANCE_MODULES[i];
+                $(`input#${module_name}`).prop('checked', isChecked);
+            }
+        })
     });
 
 
