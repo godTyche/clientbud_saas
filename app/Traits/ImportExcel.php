@@ -3,6 +3,7 @@
 namespace App\Traits;
 
 use App\Helper\Files;
+use App\Models\Company;
 use Illuminate\Support\Facades\Bus;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Artisan;
@@ -72,8 +73,12 @@ trait ImportExcel
         $jobs = [];
 
         foreach ($excelData as $row) {
-            $jobs[] = (new $importJobClass($row, $columns, company(), $request->client_id));
-
+            if($request->company_id) {
+                $company = Company::find($request->company_id);
+                $jobs[] = (new $importJobClass($row, $columns, $company, $request->client_id));
+            } else {
+                $jobs[] = (new $importJobClass($row, $columns, company(), $request->client_id));
+            }
         }
 
         $batch = Bus::batch($jobs)->onConnection('database')->onQueue($importClassName)->name($importClassName)->dispatch();

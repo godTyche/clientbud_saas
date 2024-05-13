@@ -23,6 +23,7 @@ use App\Models\PipelineStage;
 use App\Models\LeadStatus;
 use App\Models\Product;
 use App\Models\User;
+use App\Models\Company;
 use App\Traits\ImportExcel;
 use Illuminate\Http\Request;
 
@@ -36,7 +37,7 @@ class LeadContactController extends AccountBaseController
         parent::__construct();
         $this->pageTitle = 'modules.leadContact.leadContacts';
         $this->middleware(function ($request, $next) {
-            abort_403(!in_array('leads', $this->user->modules));
+            abort_403(!in_array('leads', $this->user->modules) && !auth()->user()->user->is_superadmin);
 
             return $next($request);
         });
@@ -391,7 +392,7 @@ class LeadContactController extends AccountBaseController
         $this->pageTitle = __('app.importExcel') . ' ' . __('app.menu.lead');
 
         $this->addPermission = user()->permission('add_lead');
-        abort_403(!in_array($this->addPermission, ['all', 'added']));
+        abort_403(!in_array($this->addPermission, ['all', 'added']) && !auth()->user()->user->is_superadmin);
 
         if (request()->ajax()) {
             $html = view('leads.ajax.import', $this->data)->render();
@@ -407,7 +408,8 @@ class LeadContactController extends AccountBaseController
     public function importStore(ImportRequest $request)
     {
         $this->importFileProcess($request, LeadImport::class);
-        $this->clients = User::allClients();
+        $this->clients = User::allClients(null, false, null, auth()->user()->user->company_id);
+        $this->companies = Company::select('id', 'company_name')->get();
 
         $view = view('leads.ajax.import_progress', $this->data)->render();
 

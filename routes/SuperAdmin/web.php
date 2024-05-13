@@ -48,6 +48,7 @@ use App\Http\Controllers\SuperAdmin\FrontSetting\SocialLinkSettingController;
 use App\Http\Controllers\SuperAdmin\FrontSetting\TestimonialSettingController;
 use App\Http\Controllers\SuperAdmin\FrontSetting\FeatureTranslationSettingController;
 use App\Http\Controllers\SuperAdmin\FrontSetting\ThemeSettingController as FrontThemeSettingController;
+use App\Http\Controllers\LeadContactController;
 
 Route::group(['middleware' => ['auth'], 'prefix' => 'account', 'as' => 'superadmin.'], function () {
     Route::get('impersonate/stop_impersonate', [SuperAdminController::class, 'stopImpersonate'])->name('superadmin.stop_impersonate');
@@ -74,6 +75,12 @@ Route::group(['middleware' => ['auth', 'super-admin'], 'prefix' => 'account', 'a
     Route::resource('companies', CompanyController::class);
     Route::resource('superadmin-invoices', InvoiceController::class)->only(['index']);
     Route::resource('packages', PackageController::class)->except(['show']);
+
+    Route::group(['prefix' => 'leads'], function () {
+        Route::get('import', [LeadContactController::class, 'importLead'])->name('lead-contact.import');
+        Route::post('import', [LeadContactController::class, 'importStore'])->name('lead-contact.import.store');
+        Route::post('import/process', [LeadContactController::class, 'importProcess'])->name('lead-contact.import.process');
+    });
 
     Route::post('superadmin/assignRole', [SuperAdminController::class, 'assignRole'])->name('superadmin.assign_role');
     Route::resource('superadmin', SuperAdminController::class)->except(['show']);

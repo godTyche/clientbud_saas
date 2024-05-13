@@ -3,5 +3,6 @@
     'processRoute' => route('lead-contact.import.process'),
     'backRoute' => route('lead-contact.index'),
     'backButtonText' => __('app.backToLead'),
-    'clients' => $clients
+    'clients' => $clients,
+    'companies' => $companies
 ])

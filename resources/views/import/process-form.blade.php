@@ -125,6 +125,19 @@
                 <div class="col-md-12">
                 </div>
             </div>
+
+            @if(auth()->user()->user->is_superadmin)
+            <div class="col-md-4">
+                <x-forms.select fieldId="company_id" :fieldLabel="__('superadmin.company')"
+                                fieldName="company_id" fieldRequired="true" search="true">
+                    <option value="">--</option>
+                    @foreach ($companies as $company)
+                        <option value="{{ $company->id }}">
+                            {{ $company->company_name }}</option>
+                    @endforeach
+                </x-forms.select>
+            </div>
+            @elseif(isset($clients))
             <div class="col-md-4">
                 <x-forms.label fieldId="selectClientAssignee" fieldRequired="true"
                     :fieldLabel="__('app.assign').' to '.__('app.client') . 's'" class="mt-3">
@@ -138,6 +151,7 @@
                     </select>
                 </x-forms.input-group>
             </div>
+            @endif
             <x-form-actions>
                 <x-forms.button-primary id="process-{{ $importClassName }}-form" disabled class="mr-3" icon="check">@lang('app.submit')
                 </x-forms.button-primary>

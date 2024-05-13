@@ -129,6 +129,9 @@ $deleteCompanyPermission = user()->permission('delete_companies');
                     @lang('superadmin.addCompany')
                 </x-forms.link-primary>
                 @endif
+                <x-forms.link-secondary :link="route('superadmin.lead-contact.import')" class="mr-3 openRightModal float-left mb-2 mb-lg-0 mb-md-0 d-none d-lg-block" icon="file-upload">
+                    @lang('superadmin.importLeads')
+                </x-forms.link-secondary>
             </div>
 
             @if (global_setting()->company_need_approval)

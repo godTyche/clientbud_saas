@@ -99,6 +99,7 @@ return [
     'googleCalender' => 'Enable Google Calender',
     'accountDetails' => 'Account Details ( First company admin )',
     'superAdminPanelTheme' => 'Super Admin Panel Theme',
+    'importLeads' => 'Import Leads',
     'types' => [
         'image' => 'Image',
         'icon' => 'Icon',

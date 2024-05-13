@@ -580,7 +580,7 @@ class User extends BaseModel
         }
 
         if (!is_null($companyId)) {
-            $clients->where('users.company_id', '<>', $companyId);
+            $clients->where('users.company_id', '=', $companyId);
         }
 
         if (!isRunningInConsoleOrSeeding() && isset($viewClientPermission) && $viewClientPermission == 'added') {
