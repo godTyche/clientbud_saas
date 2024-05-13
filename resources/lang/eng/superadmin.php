@@ -36,6 +36,7 @@ return [
     'backToClient' => 'Back to Clients',
     'backToAttendance' => 'Back to Attendance',
     'backToLead' => 'Back to Leads',
+    'backToCompanies' => 'Back to Companies',
     'backToProject' => 'Back to Projects',
     'crop' => 'Crop',
     'pay' => 'Pay',

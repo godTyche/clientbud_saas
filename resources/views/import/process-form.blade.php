@@ -251,7 +251,7 @@
 
         function requiredMatchAction() {
             let requiredMatched = checkRequiredMatch();
-            if (requiredMatched.length == 0) {
+            if (requiredMatched.length == 0 && $('#company_id').val() != '') {
                 $("#getUnMatchedSuccess").show();
                 $("#requiredColumnsUnmatched").hide();
                 $("#process-{{ $importClassName }}-form").removeAttr("disabled");
@@ -261,6 +261,7 @@
                 msg = msg.replace(":columns", str);
                 $("#getUnMatchedSuccess").hide();
                 $("#requiredColumnsUnmatched").html(msg).show();
+                $("#process-{{ $importClassName }}-form").attr("disabled", "disabled");
             }
         }
 
@@ -554,6 +555,10 @@
         }
 
         requiredMatchAction();
+
+        $('#company_id').change(function() {
+            requiredMatchAction();
+        })
 
         $('body').on('click', '#process-{{ $importClassName }}-form', function() {
             const url = "{{ $processRoute }}";

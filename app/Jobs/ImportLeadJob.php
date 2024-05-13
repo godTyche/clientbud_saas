@@ -50,14 +50,16 @@ class ImportLeadJob implements ShouldQueue
     {
         if ($this->isColumnExists('name')) {
 
-            if ($this->isColumnExists('email') && $this->isEmailValid($this->getColumnValue('email'))) {
-                $lead = Lead::where('client_email', $this->getColumnValue('email'))->where('company_id', $this->company?->id)->first();
-                $user = User::where('email', $this->getColumnValue('email'))->first();
-
-                if ($lead || $user) {
-                    $this->failJobWithMessage(__('messages.duplicateEntryForEmail') . $this->getColumnValue('email'));
-
-                    return;
+            if ($this->isColumnExists('email') && ($this->isEmailValid($this->getColumnValue('email')) || $this->getColumnValue('email') == null)) {
+                if($this->getColumnValue('email') != null) {
+                    $lead = Lead::where('client_email', $this->getColumnValue('email'))->where('company_id', $this->company?->id)->first();
+                    $user = User::where('email', $this->getColumnValue('email'))->first();
+    
+                    if ($lead || $user) {
+                        $this->failJobWithMessage(__('messages.duplicateEntryForEmail') . $this->getColumnValue('email'));
+    
+                        return;
+                    }
                 }
             }
             else {
