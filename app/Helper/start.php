@@ -386,10 +386,46 @@ if (!function_exists('user_modules')) {
 
         cache()->put('user_modules_' . $user->id, $moduleArray);
 
-        return $moduleArray;
+        return array_merge($moduleArray, company_addon_modules());
     }
 
 }
+
+
+    // @codingStandardsIgnoreLine
+    function company_package_modules($companyId)
+    {
+        $module = \App\Models\ModuleSetting::where('is_allowed', 1);
+
+        $module = $module->where('type', 'admin');
+
+        $module = $module->where('status', 'active');
+        $module = $module->where('company_id', $companyId);
+        $module->select('module_name');
+
+        $module = $module->get();
+        $moduleArray = [];
+
+        foreach ($module->toArray() as $item) {
+            $moduleArray[] = array_values($item)[0];
+        }
+
+        return $moduleArray;
+    }
+
+    function company_addon_modules()
+    {
+        $user = user();
+        $companyId = $user->company_id;
+
+        $company = \App\Models\Company::where('id', $companyId);
+        $company = $company->first();
+
+        $addon_modules = (array)json_decode($company->addon_modules);
+
+        return array_values($addon_modules);
+    }
+
 
 if (!function_exists('worksuite_plugins')) {
 

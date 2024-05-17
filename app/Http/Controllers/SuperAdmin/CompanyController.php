@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\SuperAdmin;
 
 use App\DataTables\SuperAdmin\CompanyDataTable;
+use App\DataTables\SuperAdmin\AddonModuleDataTable;
 use App\DataTables\SuperAdmin\InvoiceDataTable;
 use App\Helper\Files;
 use App\Helper\Reply;
@@ -16,6 +17,7 @@ use App\Models\EmployeeDetails;
 use App\Models\GlobalSetting;
 use App\Models\Permission;
 use App\Models\PermissionType;
+use App\Models\Module;
 use App\Models\Role;
 use App\Models\SuperAdmin\GlobalCurrency;
 use App\Models\SuperAdmin\GlobalInvoice;
@@ -168,6 +170,9 @@ class CompanyController extends AccountBaseController
         $company->timezone = $request->timezone;
         $company->locale = $request->locale;
         $company->status = $request->status;
+        if($request->has('addon_module')) {
+            $company->addon_modules = json_encode($request->addon_modules);
+        }
 
         if ($request->has('approved')) {
             $company->approved = $request->approved;
@@ -244,7 +249,11 @@ class CompanyController extends AccountBaseController
 
         DB::commit();
 
-        return Reply::redirect(route('superadmin.companies.index'), __('messages.companyCreated'));
+        if($request->has('addon_module')) {
+            return Reply::redirect(route('superadmin.addon_modules.index'), __('messages.companyCreated'));
+        } else {
+            return Reply::redirect(route('superadmin.companies.index'), __('messages.companyCreated'));
+        }
     }
 
     /**
@@ -586,6 +595,55 @@ class CompanyController extends AccountBaseController
 
         return Reply::success(__('superadmin.companyApprovedSuccess'));
 
+    }
+
+    public function addon_modules(AddonModuleDataTable $dataTable)
+    {
+        $this->pageTitle = __('superadmin.menu.addOnModules');
+        $this->viewPermission = user()->permission('view_companies');
+        abort_403(!($this->viewPermission == 'all'));
+
+        if (!request()->ajax()) {
+            $this->packages = Package::all();
+        }
+
+        $this->unapprovedCount = Company::where('approved', 0)->count();
+
+        return $dataTable->render('super-admin.addon-modules.index', $this->data);
+    }
+
+    public function edit_addon_modules($id)
+    {
+        $this->editPermission = user()->permission('edit_companies');
+        abort_403(!($this->editPermission == 'all'));
+
+        $this->pageTitle = __('app.update') . ' ' . __('superadmin.menu.addOnModules');
+        $this->company = Company::with('defaultAddress')->findOrFail($id)->withCustomFields();
+        $this->company->user = Company::firstActiveAdmin($this->company);
+        $this->timezones = \DateTimeZone::listIdentifiers();
+        $this->currencies = Currency::withoutGlobalScope(CompanyScope::class)->where('company_id', $this->company->id)->get();
+        $this->packageModules = Module::where('module_name', '<>', 'settings')
+            ->where('module_name', '<>', 'dashboards')
+            ->where('module_name', '<>', 'restApi')
+            ->whereNotIn('module_name', Module::disabledModuleArray())
+            ->get();
+        $this->companyModule = company_package_modules($id);
+
+        $this->fields = [];
+
+        if (!empty($this->company->getCustomFieldGroupsWithFields())) {
+            $this->fields = $this->company->getCustomFieldGroupsWithFields()->fields;
+        }
+
+        if (request()->ajax()) {
+            $html = view('super-admin.addon-modules.ajax.edit', $this->data)->render();
+
+            return Reply::dataOnly(['status' => 'success', 'html' => $html, 'title' => $this->pageTitle]);
+        }
+
+        $this->view = 'super-admin.addon-modules.ajax.edit';
+
+        return view('super-admin.addon-modules.create', $this->data);
     }
 
 }

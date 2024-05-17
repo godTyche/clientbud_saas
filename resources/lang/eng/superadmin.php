@@ -112,6 +112,7 @@ return [
     'menu' => [
         'packages' => 'Packages',
         'companies' => 'Companies',
+        'addOnModules' => 'Add-on Modules',
         'adminFaq' => 'Admin FAQ',
         'superAdmin' => 'Super Admin',
         'offlineRequest' => 'Offline Request',
@@ -606,6 +607,8 @@ return [
     'billing_name' => 'Billing Name',
     'billing_address' => 'Billing Address',
     'billing_tax_name' => 'TAX name',
-    'billing_tax_id' => 'Tax ID'
-
+    'billing_tax_id' => 'Tax ID',
+    'addon_modules' => [
+        'selectModule' => 'Select Add-on Modules For This Company'
+    ]
 ];

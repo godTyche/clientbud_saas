@@ -76,6 +76,12 @@ Route::group(['middleware' => ['auth', 'super-admin'], 'prefix' => 'account', 'a
     Route::resource('superadmin-invoices', InvoiceController::class)->only(['index']);
     Route::resource('packages', PackageController::class)->except(['show']);
 
+    Route::group(['prefix' => 'addon-modules'], function () {
+        Route::get('/', [CompanyController::class, 'addon_modules'])->name('addon_modules.index');
+        Route::get('{companyId}/edit', [CompanyController::class, 'edit_addon_modules'])->name('addon_modules.edit');
+        Route::match(['post', 'put'], '{companyId}/update', [CompanyController::class, 'update_addon_modules'])->name('addon_modules.update');
+    });
+
     Route::group(['prefix' => 'leads'], function () {
         Route::get('import', [LeadContactController::class, 'importLead'])->name('lead-contact.import');
         Route::post('import', [LeadContactController::class, 'importStore'])->name('lead-contact.import.store');
