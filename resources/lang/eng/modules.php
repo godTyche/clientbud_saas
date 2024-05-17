@@ -1848,7 +1848,7 @@ return array(
         'company_name' => 'Company Name',
         'website' => 'Website',
         'address' => 'Address',
-        'mobile' => 'Mobile',
+        'mobile' => 'Phone Number',
         'message' => 'Message',
         'city' => 'City',
         'state' => 'State',

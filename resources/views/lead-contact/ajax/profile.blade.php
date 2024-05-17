@@ -54,21 +54,21 @@
 
             <x-cards.data-row :label="__('modules.lead.companyName')" :value="!empty($leadContact->company_name) ? $leadContact->company_name : '--'" />
 
-            <x-cards.data-row :label="__('modules.lead.website')" :value="$leadContact->website ?? '--'" />
+            <!-- <x-cards.data-row :label="__('modules.lead.website')" :value="$leadContact->website ?? '--'" /> -->
 
             <x-cards.data-row :label="__('modules.lead.mobile')" :value="$leadContact->mobile ?? '--'" />
 
-            <x-cards.data-row :label="__('modules.client.officePhoneNumber')" :value="$leadContact->office ?? '--'" />
-
-            <x-cards.data-row :label="__('app.country')" :value="$leadContact->country ?? '--'" />
-
-            <x-cards.data-row :label="__('modules.stripeCustomerAddress.state')" :value="$leadContact->state ?? '--'" />
-
-            <x-cards.data-row :label="__('modules.stripeCustomerAddress.city')" :value="$leadContact->city ?? '--'" />
-
-            <x-cards.data-row :label="__('modules.stripeCustomerAddress.postalCode')" :value="$leadContact->postal_code ?? '--'" />
+            <!-- <x-cards.data-row :label="__('modules.client.officePhoneNumber')" :value="$leadContact->office ?? '--'" /> -->
 
             <x-cards.data-row :label="__('modules.lead.address')" :value="$leadContact->address ?? '--'" />
+
+            <x-cards.data-row :label="__('modules.stripeCustomerAddress.city')" :value="$leadContact->city ?? '--'" />
+            
+            <x-cards.data-row :label="__('modules.stripeCustomerAddress.state')" :value="$leadContact->state ?? '--'" />
+            
+            <x-cards.data-row :label="__('modules.stripeCustomerAddress.postalCode')" :value="$leadContact->postal_code ?? '--'" />
+            
+            <x-cards.data-row :label="__('app.country')" :value="$leadContact->country ?? '--'" />
 
             {{-- Custom fields data --}}
             <x-forms.custom-field-show :fields="$fields" :model="$leadContact"></x-forms.custom-field-show>
