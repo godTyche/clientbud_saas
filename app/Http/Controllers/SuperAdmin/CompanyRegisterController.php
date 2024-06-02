@@ -79,6 +79,9 @@ class CompanyRegisterController extends FrontBaseController
             $company->company_email = $request->email;
             $company->address = $request->company_name;
             $company->app_name = $request->company_name;
+            if($request->packageId) {
+                $company->package_id = $request->packageId;
+            }
 
             if (module_enabled('Subdomain')) {
                 $company->sub_domain = strtolower($request->sub_domain);
@@ -114,6 +117,39 @@ class CompanyRegisterController extends FrontBaseController
         }
 
         return Reply::redirect(getDomainSpecificUrl(route('login'), $company), __('superadmin.signUpThankYou'));
+    }
+
+    public function signupWithPackage($packageId)
+    {
+        $this->global = GlobalSetting::first();
+
+        $user = user();
+
+        if ($user && isset($user->company)) {
+            return redirect(getDomainSpecificUrl(route('login'), $user->company));
+        }
+
+        $this->seoDetail = SeoDetail::where('page_name', 'home')->first();
+        $this->pageTitle = __('app.signup');
+        $this->packageId = $packageId;
+
+        $view = ($this->setting->front_design == 1) ? 'super-admin.saas.register' : 'super-admin.front.register';
+
+
+        if ($this->global->frontend_disable || $this->global->setup_homepage == 'custom') {
+            $view = 'super-admin.register';
+        }
+
+
+        $this->trFrontDetail = TrFrontDetail::where('language_setting_id', $this->localeLanguage->id)->first();
+        $this->trFrontDetail = $this->trFrontDetail ?: TrFrontDetail::where('language_setting_id', $this->enLocaleLanguage->id)->first();
+
+        $signUpCount = SignUpSetting::select('id', 'language_setting_id')->where('language_setting_id', $this->localeLanguage ? $this->localeLanguage->id : null)->count();
+        $this->signUpMessage = SignUpSetting::where('language_setting_id', $signUpCount > 0 ? ($this->localeLanguage ? $this->localeLanguage->id : null) : null)->first();
+
+        $this->registrationStatus = $this->global;
+
+        return view($view, $this->data);
     }
 
     public function getEmailVerification($code)

@@ -24,4 +24,5 @@ Route::group(['as' => 'front.', 'middleware' => ['web']], function () {
     Route::middleware('guest')->group(function () {
         Route::post('client-signup/{company:hash}', [FrontendController::class, 'clientRegister'])->name('client-register');
     });
+    Route::get('signup/{packageId}', [CompanyRegisterController::class, 'signupWithPackage']);
 });

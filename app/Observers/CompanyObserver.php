@@ -843,8 +843,8 @@ class CompanyObserver
 
         // if trial package is not active set default package to company
         elseif (!is_null($defaultPackage)) {
-            $company->package_id = $defaultPackage->id;
-
+            if(!$company->package_id)
+                $company->package_id = $defaultPackage->id;
         }
         else {
             $company->package_id = $otherPackage->id;

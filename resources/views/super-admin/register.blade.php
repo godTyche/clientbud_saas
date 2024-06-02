@@ -75,6 +75,9 @@
                     </x-slot>
                 </x-forms.input-group>
             </div>
+            @if (isset($packageId))
+            <input type="hidden" name="packageId" value="{{$packageId}}"/>
+            @endif
 
             @if ($global->google_recaptcha_status == 'active')
                 <div class="form-group text-left">
