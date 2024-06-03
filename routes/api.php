@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
+use App\Models\SuperAdmin\Package;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -16,4 +17,9 @@ use Illuminate\Support\Facades\Route;
 
 ApiRoute::group(['namespace' => 'App\Http\Controllers'], function () {
     ApiRoute::get('purchased-module', ['as' => 'api.purchasedModule', 'uses' => 'HomeController@installedModule']);
+});
+
+Route::get('/get_packages', function(){
+    $packages = Package::get();
+    return $packages;
 });
