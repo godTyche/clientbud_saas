@@ -16,6 +16,7 @@ use App\Models\SuperAdmin\GlobalPaymentGatewayCredentials;
 use App\Models\SuperAdmin\GlobalSubscription;
 use App\Models\SuperAdmin\Package;
 use App\Models\SuperAdmin\PackageSetting;
+use Illuminate\Support\Facades\DB;
 
 class PackageController extends AccountBaseController
 {
@@ -294,4 +295,16 @@ class PackageController extends AccountBaseController
         $offlineInvoice->save();
     }
 
+    public function updateDesc()
+    {
+        $module_names = request('module_names');
+        $module_descs = request('module_descs');
+
+        foreach($module_names as $key => $module_name) {
+            DB::table('modules')
+            ->where('module_name',$module_name)
+            ->update(['module_description' => $module_descs[$key]]);
+        }
+        echo "success";
+    }
 }

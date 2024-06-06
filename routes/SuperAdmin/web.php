@@ -75,6 +75,7 @@ Route::group(['middleware' => ['auth', 'super-admin'], 'prefix' => 'account', 'a
     Route::resource('companies', CompanyController::class);
     Route::resource('superadmin-invoices', InvoiceController::class)->only(['index']);
     Route::resource('packages', PackageController::class)->except(['show']);
+    Route::post('packages/update-desc', [PackageController::class, 'updateDesc'])->name('packages.update_desc');
 
     Route::group(['prefix' => 'addon-modules'], function () {
         Route::get('/', [CompanyController::class, 'addon_modules'])->name('addon_modules.index');

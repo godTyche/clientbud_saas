@@ -71,13 +71,25 @@ $deletePackagesPermission = user()->permission('delete_packages');
         <div class="d-flex flex-column w-tables rounded mt-3 bg-white">
 
             {!! $dataTable->table(['class' => 'table table-hover border-0 w-100']) !!}
-
         </div>
+        <x-forms.button-primary class="mt-3 float-right desc-save">
+            @lang('Save')
+        </x-forms.link-primary>
+        <x-forms.button-secondary class="mt-3 mr-3 float-right desc-edit">
+            @lang('Edit')
+        </x-forms.link-primary>
         <!-- Task Box End -->
     </div>
     <!-- CONTENT WRAPPER END -->
 
 @endsection
+@push('styles')
+    <style>
+        .module-desc {
+            width: 100%;
+        }
+    </style>
+@endpush
 
 @push('scripts')
     @include('sections.datatable_js')
@@ -166,6 +178,33 @@ $deletePackagesPermission = user()->permission('delete_packages');
             });
         @endif
 
+        $('.desc-save').click(function() {
+            const descObj = $('.module-desc');
+            const module_names = [];
+            const module_descs = [];
+            for(let i = 0 ; i < descObj.length; i ++) {
+                module_names.push(descObj.eq(i).attr('data-value'));
+                module_descs.push(descObj.eq(i).val());
+            }
+            $.ajax({
+                url: "{{ route('superadmin.packages.update_desc') }}",
+                type: 'POST',
+                data: {
+                    "_token": "{{ csrf_token() }}",
+                   'module_names': module_names,
+                   'module_descs': module_descs
+                },
+                success: function(response) {
+                    location.reload();
+                }
+            })
+        })
 
+        $('.desc-edit').click(function(){
+            const obj = $('.module-description');
+            const descObj = $('.module-desc');
+            obj.hide();
+            descObj.show();
+        })
     </script>
 @endpush

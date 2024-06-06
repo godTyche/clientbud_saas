@@ -132,22 +132,34 @@ class PackageDataTable extends BaseDataTable
                 $WORK_MODULES = ['contracts', 'projects', 'tasks', 'timelogs'];
                 $FINANCE_MODULES = ['estimates', 'invoices', 'payments', 'expenses', 'bankaccount'];
 
+                $hr_desc = '';
+                $work_desc = '';
+                $finance_desc = '';
+                foreach($modulesAll as $module) {
+                    if($module->module_name == 'employees')
+                        $hr_desc = $module->module_description;
+                    else if($module->module_name == 'contracts')
+                        $work_desc = $module->module_description;
+                    else if($module->module_name == 'estimates')
+                        $finance_desc = $module->module_description;
+                }
+
                 // Check HR, Work module in Package table
                 $sign = in_array($HR_MODULES[0], $modules) ? ('<i class="fa fa-check"></i>') : ('<i class="fa fa-times"></i>');
-                $string .= '<span class="col-md-3">' . $sign . ' ' .'HR' . '</span>';
+                $string .= '<span class="col-md-3">' . $sign . ' ' .'HR' . ($row->sort == 4 ? '<br/><span class="module-description">'.$hr_desc.'</span><input class="module-desc" data-value="employees" type="text" value="'.$hr_desc.'" style="display:none"/>' : ''). '</span>';
 
                 $sign = in_array($WORK_MODULES[0], $modules) ? ('<i class="fa fa-check"></i>') : ('<i class="fa fa-times"></i>');
-                $string .= '<span class="col-md-3">' . $sign . ' ' .'Work' . '</span>';
+                $string .= '<span class="col-md-3">' . $sign . ' ' .'Work' . ($row->sort == 4 ? '<br/><span class="module-description">'.$work_desc.'</span><input class="module-desc" data-value="contracts" type="text" value="'.$work_desc.'" style="display:none"/>' : ''). '</span>';
 
                 $sign = in_array($FINANCE_MODULES[0], $modules) ? ('<i class="fa fa-check"></i>') : ('<i class="fa fa-times"></i>');
-                $string .= '<span class="col-md-3">' . $sign . ' ' .'Finance' . '</span>';
+                $string .= '<span class="col-md-3">' . $sign . ' ' .'Finance' . ($row->sort == 4 ? '<br/><span class="module-description">'.$finance_desc.'</span><input class="module-desc" data-value="estimates" type="text" value="'.$finance_desc.'" style="display:none"/>' : ''). '</span>';
 
                 foreach ($modulesAll as $module) {
                     if(in_array($module->module_name, $HR_MODULES) || in_array($module->module_name, $WORK_MODULES) || in_array($module->module_name, $FINANCE_MODULES)) {
                         continue;
                     }
                     $sign = in_array($module->module_name, $modules) ? ('<i class="fa fa-check"></i>') : ('<i class="fa fa-times"></i>');
-                    $string .= '<span class="col-md-3">' . $sign . ' ' . __('modules.module.' . $module->module_name) . '</span>';
+                    $string .= '<span class="col-md-3">' . $sign . ' ' . __('modules.module.' . $module->module_name) . ($row->sort == 4 ? '<br/><span class="module-description">'.$module->module_description.'</span><input class="module-desc" data-value="'.$module->module_name.'" type="text" value="'.$module->module_description.'" style="display:none"/>' : ''). '</span>';
                 }
 
                 return '<div class="row f-11">' . $string . '<div>';
